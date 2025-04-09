@@ -1,5 +1,3 @@
-"use client"
-
 import { Link } from "react-router-dom"
 import { useCart } from "../contexts/CartContext"
 import CartItem from "../components/CartItem"
@@ -14,7 +12,7 @@ const Cart = () => {
 
       {cartItems.length === 0 ? (
         <div className="empty-cart">
-          <p>Your cart is empty.</p>
+          <h3>Your cart is empty !</h3>
           <Link to="/products" className="continue-shopping-button">
             Continue Shopping
           </Link>

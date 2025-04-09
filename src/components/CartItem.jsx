@@ -1,6 +1,5 @@
-"use client"
-
 import { useCart } from "../contexts/CartContext"
+import { FiPlus, FiMinus, FiX } from "react-icons/fi"
 import "../styles/CartItem.css"
 
 const CartItem = ({ item }) => {
@@ -36,13 +35,13 @@ const CartItem = ({ item }) => {
       </div>
 
       <div className="cart-item-details">
-        <h3 className="cart-item-title">{item.title}</h3>
+        <h6 className="cart-item-title">{item.title}</h6>
         <p className="cart-item-price">${item.price.toFixed(2)}</p>
       </div>
 
       <div className="cart-item-quantity">
         <button className="quantity-button" onClick={handleDecrement} aria-label="Decrease quantity">
-          -
+          <FiMinus />
         </button>
         <input
           type="number"
@@ -53,7 +52,7 @@ const CartItem = ({ item }) => {
           aria-label="Item quantity"
         />
         <button className="quantity-button" onClick={handleIncrement} aria-label="Increase quantity">
-          +
+          <FiPlus />
         </button>
       </div>
 
@@ -62,7 +61,7 @@ const CartItem = ({ item }) => {
       </div>
 
       <button className="remove-button" onClick={handleRemove} aria-label={`Remove ${item.title} from cart`}>
-        ✕
+        <FiX />
       </button>
     </div>
   )
