@@ -1,18 +1,7 @@
-"use client"
-
 import { Link } from "react-router-dom"
-import { useCart } from "../contexts/CartContext"
 import "../styles/ProductCard.css"
 
 const ProductCard = ({ product }) => {
-  const { addToCart } = useCart()
-
-  const handleAddToCart = (e) => {
-    e.preventDefault()
-    e.stopPropagation()
-    addToCart(product, 1)
-  }
-
   return (
     <div className="product-card">
       <Link to={`/products/${product.id}`} className="product-link">
@@ -33,9 +22,6 @@ const ProductCard = ({ product }) => {
           </div>
         </div>
       </Link>
-      <button className="add-to-cart-button" onClick={handleAddToCart} aria-label={`Add ${product.title} to cart`}>
-        Add to Cart
-      </button>
     </div>
   )
 }
