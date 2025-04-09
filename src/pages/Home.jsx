@@ -80,7 +80,7 @@ const Home = () => {
           {categories.map((category) => (
             <Link key={category} to={`/products?category=${encodeURIComponent(category)}`} className="category-card">
               <div className="category-content">
-                <h3>{category.charAt(0).toUpperCase() + category.slice(1)}</h3>
+                <h4>{category.charAt(0).toUpperCase() + category.slice(1)}</h4>
                 <span className="category-link">Browse Products →</span>
               </div>
             </Link>
@@ -95,7 +95,7 @@ const Home = () => {
           <p>
             Use code: <strong>FIRST20</strong>
           </p>
-          <Link to="/products" className="promo-button">
+          <Link to="/products" className="shop-now-button">
             Shop Now
           </Link>
         </div>

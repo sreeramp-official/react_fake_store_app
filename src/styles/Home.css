@@ -76,11 +76,12 @@
 
 /* Category Cards */
 .categories-grid {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 32px;
+  align-items: stretch;
 }
+
 
 .category-card {
   background-color: var(--card);
@@ -104,7 +105,7 @@
   padding: 20px;
 }
 
-.category-content h3 {
+.category-content h4 {
   margin-bottom: 10px;
   color: var(--text);
 }
@@ -133,21 +134,6 @@
 .promo-content p {
   font-size: 16px;
   margin-bottom: 10px;
-}
-
-.promo-button {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: var(--accent);
-  color: white;
-  border-radius: 8px;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-}
-
-.promo-button:hover {
-  background-color: #0aa6c9;
 }
 
 /* Responsive Design */
