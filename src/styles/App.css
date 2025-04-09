@@ -92,7 +92,8 @@ button {
 }
 
 button:hover {
-  background-color: var(--secondary);
+  background-color: var(--text);
+  color: var(--background);
 }
 
 input, select, textarea {
