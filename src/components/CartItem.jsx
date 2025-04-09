@@ -40,7 +40,7 @@ const CartItem = ({ item }) => {
       </div>
 
       <div className="cart-item-quantity">
-        <button className="quantity-button" onClick={handleDecrement} aria-label="Decrease quantity">
+        <button onClick={handleDecrement} aria-label="Decrease quantity">
           <FiMinus />
         </button>
         <input
@@ -51,7 +51,7 @@ const CartItem = ({ item }) => {
           className="quantity-input"
           aria-label="Item quantity"
         />
-        <button className="quantity-button" onClick={handleIncrement} aria-label="Increase quantity">
+        <button onClick={handleIncrement} aria-label="Increase quantity">
           <FiPlus />
         </button>
       </div>
@@ -60,7 +60,7 @@ const CartItem = ({ item }) => {
         <p>${(item.price * item.quantity).toFixed(2)}</p>
       </div>
 
-      <button className="remove-button" onClick={handleRemove} aria-label={`Remove ${item.title} from cart`}>
+      <button onClick={handleRemove} aria-label={`Remove ${item.title} from cart`}>
         <FiX />
       </button>
     </div>
