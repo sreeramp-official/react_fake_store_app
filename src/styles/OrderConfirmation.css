@@ -1,0 +1,118 @@
+.order-confirmation-page {
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+.confirmation-container {
+  background-color: var(--color-card);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px var(--color-shadow);
+  padding: 40px;
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.confirmation-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.success-icon {
+  width: 60px;
+  height: 60px;
+  background-color: var(--color-success);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+}
+
+.confirmation-header h1 {
+  font-size: 28px;
+  color: var(--color-text);
+}
+
+.confirmation-header p {
+  font-size: 16px;
+  color: var(--color-secondary);
+}
+
+.order-details,
+.shipping-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.order-details h2,
+.shipping-info h2 {
+  font-size: 20px;
+  color: var(--color-text);
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+}
+
+.detail-label {
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.detail-value {
+  color: var(--color-text);
+}
+
+.shipping-info p {
+  font-size: 14px;
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+.confirmation-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.home-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: var(--color-primary);
+  color: white;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.home-button:hover {
+  background-color: var(--color-secondary);
+}
+
+@media (max-width: 768px) {
+  .confirmation-container {
+    padding: 30px 20px;
+  }
+
+  .confirmation-header h1 {
+    font-size: 24px;
+  }
+
+  .detail-row {
+    flex-direction: column;
+    gap: 5px;
+  }
+}

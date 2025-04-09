@@ -1,0 +1,96 @@
+@import url("https://fonts.googleapis.com/css2?family=Fjord+One&display=swap");
+
+:root {
+  /* Light theme colors */
+  --color-background: #ffffff;
+  --color-text: #333333;
+  --color-primary: #4a6fa5;
+  --color-secondary: #6b8cae;
+  --color-accent: #e63946;
+  --color-border: #e1e1e1;
+  --color-card: #f8f9fa;
+  --color-input: #ffffff;
+  --color-button: #4a6fa5;
+  --color-button-text: #ffffff;
+  --color-shadow: rgba(0, 0, 0, 0.1);
+  --color-error: #e63946;
+  --color-success: #2a9d8f;
+}
+
+[data-theme="dark"] {
+  /* Dark theme colors */
+  --color-background: #121212;
+  --color-text: #e1e1e1;
+  --color-primary: #6b8cae;
+  --color-secondary: #4a6fa5;
+  --color-accent: #e63946;
+  --color-border: #333333;
+  --color-card: #1e1e1e;
+  --color-input: #2d2d2d;
+  --color-button: #6b8cae;
+  --color-button-text: #ffffff;
+  --color-shadow: rgba(0, 0, 0, 0.3);
+  --color-error: #e63946;
+  --color-success: #2a9d8f;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Fjord One", serif;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  line-height: 1.6;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: var(--color-secondary);
+}
+
+button {
+  cursor: pointer;
+  font-family: "Fjord One", serif;
+}
+
+input,
+select,
+textarea {
+  font-family: "Fjord One", serif;
+}
+
+.error-message {
+  color: var(--color-error);
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 15px;
+  }
+}
