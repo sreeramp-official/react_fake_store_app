@@ -73,18 +73,15 @@ small { font-size: 0.750rem; }  /* ~12px */
 
 /* General Styles */
 a {
-  color: var(--primary);
+  color: var(--text);
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
-a:hover {
-  color: var(--secondary);
-}
-
 button {
-  background-color: var(--button-bg);
-  color: var(--button-text);
+  background-color: var(--background);
+  color: var(--text);
+  border: 1px solid var(--text);
   font-family: 'Fjord One', serif;
   font-weight: 700;
   padding: 0.6em 1.2em;
