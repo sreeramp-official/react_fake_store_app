@@ -1,53 +1,120 @@
-@import url("https://fonts.googleapis.com/css2?family=Fjord+One&display=swap");
+/* Import Fjord One font from Google Fonts */
+@import url('https://fonts.googleapis.com/css?family=Fjord%20One:700|Fjord%20One:400');
 
-:root {
-  /* Light theme colors */
-  --color-background: #ffffff;
-  --color-text: #333333;
-  --color-primary: #4a6fa5;
-  --color-secondary: #6b8cae;
-  --color-accent: #e63946;
-  --color-border: #e1e1e1;
-  --color-card: #f8f9fa;
-  --color-input: #ffffff;
-  --color-button: #4a6fa5;
-  --color-button-text: #ffffff;
-  --color-shadow: rgba(0, 0, 0, 0.1);
-  --color-error: #e63946;
-  --color-success: #2a9d8f;
+/* Light Theme Variables */
+:root[data-theme="light"] {
+  --text: #0d1d21;
+  --background: #eff9fb;
+  --primary: #166374;
+  --secondary: #5ed3ed;
+  --accent: #09bae1;
+
+  --card: #ffffff;
+  --button-bg: #166374;
+  --button-text: #ffffff;
+  --input-bg: #ffffff;
+  --border-color: #dbeafe;
+  --shadow-color: rgba(0, 0, 0, 0.05);
+  --error: #e63946;
+  --success: #2a9d8f;
 }
 
-[data-theme="dark"] {
-  /* Dark theme colors */
-  --color-background: #121212;
-  --color-text: #e1e1e1;
-  --color-primary: #6b8cae;
-  --color-secondary: #4a6fa5;
-  --color-accent: #e63946;
-  --color-border: #333333;
-  --color-card: #1e1e1e;
-  --color-input: #2d2d2d;
-  --color-button: #6b8cae;
-  --color-button-text: #ffffff;
-  --color-shadow: rgba(0, 0, 0, 0.3);
-  --color-error: #e63946;
-  --color-success: #2a9d8f;
+/* Dark Theme Variables */
+:root[data-theme="dark"] {
+  --text: #deeef2;
+  --background: #040e10;
+  --primary: #8bd8e9;
+  --secondary: #1286a1;
+  --accent: #1ecef6;
+
+  --card: #0b1a1c;
+  --button-bg: #1286a1;
+  --button-text: #ffffff;
+  --input-bg: #0f2a2d;
+  --border-color: #1e3a3c;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --error: #ff6b6b;
+  --success: #2ec4b6;
 }
 
+/* Reset & Base */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
-  font-family: "Fjord One", serif;
-  background-color: var(--color-background);
-  color: var(--color-text);
-  line-height: 1.6;
-  transition: background-color 0.3s, color 0.3s;
+html {
+  font-size: 100%; /* 16px base */
 }
 
+body {
+  font-family: 'Fjord One', serif;
+  font-weight: 400;
+  background-color: var(--background);
+  color: var(--text);
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Fjord One', serif;
+  font-weight: 700;
+}
+
+/* Font sizes */
+h1 { font-size: 4.210rem; }  /* ~67.36px */
+h2 { font-size: 3.158rem; }  /* ~50.56px */
+h3 { font-size: 2.369rem; }  /* ~37.92px */
+h4 { font-size: 1.777rem; }  /* ~28.48px */
+h5 { font-size: 1.333rem; }  /* ~21.28px */
+small { font-size: 0.750rem; }  /* ~12px */
+
+/* General Styles */
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--secondary);
+}
+
+button {
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  font-family: 'Fjord One', serif;
+  font-weight: 700;
+  padding: 0.6em 1.2em;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--secondary);
+}
+
+input, select, textarea {
+  background-color: var(--input-bg);
+  color: var(--text);
+  border: 1px solid var(--border-color);
+  padding: 0.5em;
+  border-radius: 6px;
+  font-family: 'Fjord One', serif;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.error-message {
+  color: var(--error);
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* Layout Helpers */
 .app {
   display: flex;
   flex-direction: column;
@@ -62,33 +129,7 @@ body {
   width: 100%;
 }
 
-a {
-  color: var(--color-primary);
-  text-decoration: none;
-  transition: color 0.3s;
-}
-
-a:hover {
-  color: var(--color-secondary);
-}
-
-button {
-  cursor: pointer;
-  font-family: "Fjord One", serif;
-}
-
-input,
-select,
-textarea {
-  font-family: "Fjord One", serif;
-}
-
-.error-message {
-  color: var(--color-error);
-  font-size: 14px;
-  margin-top: 5px;
-}
-
+/* Responsive */
 @media (max-width: 768px) {
   .main-content {
     padding: 15px;
