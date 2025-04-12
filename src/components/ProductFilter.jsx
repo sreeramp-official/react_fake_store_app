@@ -12,7 +12,6 @@ const ProductFilter = ({
   sortOption,
   onSortChange,
 }) => {
-  const [isFilterVisible, setIsFilterVisible] = useState(false)
   const [localPriceRange, setLocalPriceRange] = useState(priceRange)
 
   useEffect(() => {
@@ -31,19 +30,11 @@ const ProductFilter = ({
     onPriceRangeChange(localPriceRange)
   }
 
-  const toggleFilterVisibility = () => {
-    setIsFilterVisible(!isFilterVisible)
-  }
-
   return (
     <div className="product-filter">
-      <button className="filter-toggle-button" onClick={toggleFilterVisibility} aria-expanded={isFilterVisible}>
-        {isFilterVisible ? "Hide Filters" : "Show Filters"}
-      </button>
 
-      <div className={`filter-container ${isFilterVisible ? "visible" : ""}`}>
+      <div className="filter-container">
         <div className="filter-section">
-          <h3>Categories</h3>
           <ul className="category-list">
             <li>
               <button className={selectedCategory === "" ? "active" : ""} onClick={() => onCategoryChange("")}>

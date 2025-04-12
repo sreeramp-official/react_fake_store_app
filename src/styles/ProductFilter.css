@@ -1,15 +1,15 @@
 .product-filter {
-  background-color: var(--color-card);
+  background-color: var(--card);
   border-radius: 8px;
   padding: 20px;
-  box-shadow: 0 2px 8px var(--color-shadow);
+  box-shadow: 0 2px 8px var(--shadow-color);
 }
 
 .filter-toggle-button {
   display: none;
   width: 100%;
   padding: 10px;
-  background-color: var(--color-primary);
+  background-color: var(--primary);
   color: white;
   border: none;
   border-radius: 4px;
@@ -25,7 +25,7 @@
 }
 
 .filter-section {
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--border-color);
   padding-bottom: 20px;
 }
 
@@ -37,7 +37,7 @@
 .filter-section h3 {
   font-size: 16px;
   margin-bottom: 15px;
-  color: var(--color-text);
+  color: var(--text);
 }
 
 .category-list {
@@ -48,23 +48,43 @@
 }
 
 .category-list button {
+  position: relative;
   background: none;
   border: none;
-  text-align: left;
+  color: var(--text);
+  font-size: 16px;
   cursor: pointer;
-  color: var(--color-text);
+  padding: 6px 0;
   transition: color 0.3s;
-  padding: 5px 0;
-  font-size: 14px;
+}
+
+.category-list button::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 0%;
+  background-color: var(--primary);
+  transition: width 0.3s ease;
 }
 
 .category-list button:hover {
-  color: var(--color-primary);
+  color: var(--primary);
+  background: transparent;
+}
+
+.category-list button:hover::after {
+  width: 100%;
 }
 
 .category-list button.active {
-  color: var(--color-primary);
+  color: var(--primary);
   font-weight: bold;
+}
+
+.category-list button.active::after {
+  width: 100%;
 }
 
 .price-inputs {
@@ -77,6 +97,7 @@
   display: flex;
   flex-direction: column;
   flex: 1;
+  width: 5vw;
 }
 
 .price-input-group label {
@@ -86,46 +107,33 @@
 
 .price-input-group input {
   padding: 8px;
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--border-color);
   border-radius: 4px;
-  background-color: var(--color-input);
-  color: var(--color-text);
+  background-color: var(--input-bg);
+  color: var(--text);
 }
 
 .apply-price-button {
   padding: 8px 12px;
-  background-color: var(--color-primary);
-  color: white;
-  border: none;
+  background-color: transparent;
+  border: 1px solid var(--text);
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
   font-size: 14px;
 }
 
-.apply-price-button:hover {
-  background-color: var(--color-secondary);
-}
-
 .sort-select {
   width: 100%;
   padding: 8px;
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--border-color);
   border-radius: 4px;
-  background-color: var(--color-input);
-  color: var(--color-text);
+  background-color: var(--input-bg);
+  color: var(--text);
 }
 
 @media (max-width: 992px) {
   .filter-toggle-button {
     display: block;
-  }
-
-  .filter-container {
-    display: none;
-  }
-
-  .filter-container.visible {
-    display: flex;
   }
 }
