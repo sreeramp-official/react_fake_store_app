@@ -7,35 +7,27 @@ const ThemeContext = createContext()
 export const useTheme = () => useContext(ThemeContext)
 
 export const ThemeProvider = ({ children }) => {
-  const [darkMode, setDarkMode] = useState(false)
-
-  useEffect(() => {
-    // Check if user has a theme preference in localStorage
+  // Initialize from localStorage using a functional initializer
+  const [darkMode, setDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem("theme")
     if (savedTheme) {
-      setDarkMode(savedTheme === "dark")
-    } else {
-      // Check if user prefers dark mode at the OS level
-      const prefersDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
-      setDarkMode(prefersDarkMode)
+      return savedTheme === "dark"
     }
-  }, [])
+    // Fallback to OS preference if no saved theme exists.
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+  })
 
   useEffect(() => {
-    // Apply theme to document
+    // Apply theme to document and save preference
     document.documentElement.setAttribute("data-theme", darkMode ? "dark" : "light")
-    // Save theme preference
     localStorage.setItem("theme", darkMode ? "dark" : "light")
   }, [darkMode])
 
   const toggleTheme = () => {
-    setDarkMode((prevMode) => !prevMode)
+    setDarkMode(prevMode => !prevMode)
   }
 
-  const value = {
-    darkMode,
-    toggleTheme,
-  }
+  const value = { darkMode, toggleTheme }
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
 }
