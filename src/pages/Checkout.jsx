@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useCart } from "../contexts/CartContext"
 import "../styles/Checkout.css"
@@ -27,6 +27,14 @@ const Checkout = () => {
 
   const [errors, setErrors] = useState({})
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [orderSummary, setOrderSummary] = useState(null)
+
+  // Redirect to cart if empty and no order summary exists
+  useEffect(() => {
+    if (cartItems.length === 0 && !orderSummary) {
+      navigate("/cart")
+    }
+  }, [cartItems, navigate, orderSummary])
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -67,15 +75,12 @@ const Checkout = () => {
       } else if (!/^\d{16}$/.test(formData.cardNumber.replace(/\s/g, ""))) {
         newErrors.cardNumber = "Card number must be 16 digits"
       }
-
       if (!formData.cardName.trim()) newErrors.cardName = "Name on card is required"
-
       if (!formData.expiryDate.trim()) {
         newErrors.expiryDate = "Expiry date is required"
       } else if (!/^\d{2}\/\d{2}$/.test(formData.expiryDate)) {
         newErrors.expiryDate = "Expiry date must be in MM/YY format"
       }
-
       if (!formData.cvv.trim()) {
         newErrors.cvv = "CVV is required"
       } else if (!/^\d{3,4}$/.test(formData.cvv)) {
@@ -95,35 +100,78 @@ const Checkout = () => {
 
       // Simulate order processing
       setTimeout(() => {
-        // Clear cart and redirect to confirmation page
+        // Build the order summary using current form data and cart items
+        const summary = {
+          orderId: `ORD-${Math.floor(Math.random() * 1000000)}`,
+          orderDate: new Date().toISOString(),
+          shippingAddress: `${formData.address}, ${formData.city}, ${formData.state} ${formData.zipCode}, ${formData.country}`,
+          paymentMethod: formData.paymentMethod === "credit" ? "Credit Card" : "PayPal",
+          total: getTotalPrice() * 1.1, // total with tax (assuming 10% tax)
+          items: [...cartItems],
+        }
+
+        // Save order summary in local state then clear the cart.
+        setOrderSummary(summary)
         clearCart()
-        navigate("/order-confirmation", {
-          state: {
-            orderId: `ORD-${Math.floor(Math.random() * 1000000)}`,
-            orderDate: new Date().toISOString(),
-            shippingAddress: `${formData.address}, ${formData.city}, ${formData.state} ${formData.zipCode}, ${formData.country}`,
-            paymentMethod: formData.paymentMethod === "credit" ? "Credit Card" : "PayPal",
-          },
-        })
         setIsSubmitting(false)
       }, 1500)
     }
   }
 
-  if (cartItems.length === 0) {
-    navigate("/cart")
-    return null
+  // If orderSummary is set, show the confirmation page.
+  if (orderSummary) {
+    return (
+      <div className="order-confirmation">
+        <h1>Order Confirmation</h1>
+        <p>Thank you for your order!</p>
+        <p>
+          <strong>Order ID:</strong> {orderSummary.orderId}
+        </p>
+        <p>
+          <strong>Order Date:</strong> {new Date(orderSummary.orderDate).toLocaleString()}
+        </p>
+        <p>
+          <strong>Shipping Address:</strong> {orderSummary.shippingAddress}
+        </p>
+        <p>
+          <strong>Payment Method:</strong> {orderSummary.paymentMethod}
+        </p>
+        <p>
+          <strong>Total:</strong> ${orderSummary.total.toFixed(2)}
+        </p>
+
+        <h2>Order Items</h2>
+        <div className="summary-items">
+          {orderSummary.items.map((item) => (
+            <div key={item.id} className="summary-item">
+              <div className="item-info">
+                <img src={item.image || "/placeholder.svg"} alt={item.title} className="item-image" />
+                <div className="item-details">
+                  <p className="item-title">{item.title}</p>
+                  <p className="item-quantity">Qty: {item.quantity}</p>
+                </div>
+              </div>
+              <p className="item-price">${(item.price * item.quantity).toFixed(2)}</p>
+            </div>
+          ))}
+        </div>
+
+        <button className="continue-shopping-button" onClick={() => navigate("/")}>
+          Continue Shopping
+        </button>
+      </div>
+    )
   }
 
+  // Render the checkout form and live order summary (using current cart items) if order is not placed yet.
   return (
     <div className="checkout-page">
       <h1>Checkout</h1>
-
       <div className="checkout-container">
         <form onSubmit={handleSubmit} className="checkout-form">
+          {/* Shipping Information Section */}
           <div className="form-section">
             <h2>Shipping Information</h2>
-
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="firstName">First Name *</label>
@@ -137,7 +185,6 @@ const Checkout = () => {
                 />
                 {errors.firstName && <span className="error-message">{errors.firstName}</span>}
               </div>
-
               <div className="form-group">
                 <label htmlFor="lastName">Last Name *</label>
                 <input
@@ -151,7 +198,6 @@ const Checkout = () => {
                 {errors.lastName && <span className="error-message">{errors.lastName}</span>}
               </div>
             </div>
-
             <div className="form-group">
               <label htmlFor="email">Email *</label>
               <input
@@ -164,7 +210,6 @@ const Checkout = () => {
               />
               {errors.email && <span className="error-message">{errors.email}</span>}
             </div>
-
             <div className="form-group">
               <label htmlFor="address">Address *</label>
               <input
@@ -177,7 +222,6 @@ const Checkout = () => {
               />
               {errors.address && <span className="error-message">{errors.address}</span>}
             </div>
-
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="city">City *</label>
@@ -191,7 +235,6 @@ const Checkout = () => {
                 />
                 {errors.city && <span className="error-message">{errors.city}</span>}
               </div>
-
               <div className="form-group">
                 <label htmlFor="state">State *</label>
                 <input
@@ -204,7 +247,6 @@ const Checkout = () => {
                 />
                 {errors.state && <span className="error-message">{errors.state}</span>}
               </div>
-
               <div className="form-group">
                 <label htmlFor="zipCode">ZIP Code *</label>
                 <input
@@ -218,7 +260,6 @@ const Checkout = () => {
                 {errors.zipCode && <span className="error-message">{errors.zipCode}</span>}
               </div>
             </div>
-
             <div className="form-group">
               <label htmlFor="country">Country</label>
               <select id="country" name="country" value={formData.country} onChange={handleChange}>
@@ -230,9 +271,9 @@ const Checkout = () => {
             </div>
           </div>
 
+          {/* Payment Method Section */}
           <div className="form-section">
             <h2>Payment Method</h2>
-
             <div className="payment-options">
               <div className="payment-option">
                 <input
@@ -245,7 +286,6 @@ const Checkout = () => {
                 />
                 <label htmlFor="credit">Credit Card</label>
               </div>
-
               <div className="payment-option">
                 <input
                   type="radio"
@@ -274,7 +314,6 @@ const Checkout = () => {
                   />
                   {errors.cardNumber && <span className="error-message">{errors.cardNumber}</span>}
                 </div>
-
                 <div className="form-group">
                   <label htmlFor="cardName">Name on Card *</label>
                   <input
@@ -287,7 +326,6 @@ const Checkout = () => {
                   />
                   {errors.cardName && <span className="error-message">{errors.cardName}</span>}
                 </div>
-
                 <div className="form-row">
                   <div className="form-group">
                     <label htmlFor="expiryDate">Expiry Date (MM/YY) *</label>
@@ -302,7 +340,6 @@ const Checkout = () => {
                     />
                     {errors.expiryDate && <span className="error-message">{errors.expiryDate}</span>}
                   </div>
-
                   <div className="form-group">
                     <label htmlFor="cvv">CVV *</label>
                     <input
@@ -328,7 +365,6 @@ const Checkout = () => {
 
         <div className="order-summary">
           <h2>Order Summary</h2>
-
           <div className="summary-items">
             {cartItems.map((item) => (
               <div key={item.id} className="summary-item">
@@ -343,7 +379,6 @@ const Checkout = () => {
               </div>
             ))}
           </div>
-
           <div className="summary-totals">
             <div className="summary-row">
               <span>Subtotal:</span>
